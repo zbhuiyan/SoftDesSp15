@@ -2,7 +2,7 @@
 """
 Created on Sun Feb  2 11:24:42 2014
 
-@author: YOUR NAME HERE
+@author: Zarin Bhuiyan
 
 """
 
@@ -30,7 +30,21 @@ def get_complement(nucleotide):
     'G'
     """
     # TODO: implement this
-    pass
+    if nucleotide == "A":
+        return "T"
+    elif nucleotide == "T":
+        return "A"
+    elif nucleotide == "C":
+        return "G"
+    elif nucleotide == "G":
+         return "C"
+    else:
+        print("Not valid input")
+
+
+
+
+    
 
 def get_reverse_complement(dna):
     """ Computes the reverse complementary sequence of DNA for the specfied DNA
@@ -44,7 +58,35 @@ def get_reverse_complement(dna):
     'TGAACGCGG'
     """
     # TODO: implement this
-    pass
+
+    if len(dna) <= 1:
+        return dna
+
+    else:
+        reverse_dna = dna[::-1]
+        #return reverse_dna
+
+        reverse_list = list (reverse_dna)
+        new_list = []
+
+
+        for i in reverse_list:
+
+            new_list.append(get_complement(i))
+
+
+
+            
+
+        return ''.join(new_list)
+
+#print get_reverse_complement("ATGCCCGCTTT")
+
+
+
+
+
+
 
 def rest_of_ORF(dna):
     """ Takes a DNA sequence that is assumed to begin with a start codon and returns
@@ -59,7 +101,16 @@ def rest_of_ORF(dna):
     'ATGAGA'
     """
     # TODO: implement this
-    pass
+    x = [dna[i:i+3] for i in range(0,len(dna),3)]
+
+    for i in range(len(x)):
+    
+        if (x[i] == 'TAG') or (x[i] == 'TGA') or (x[i] == 'TAA'):
+            return dna[0:i*3]
+        else:
+            return dnahttp://www.hot97.com/
+
+
 
 def find_all_ORFs_oneframe(dna):
     """ Finds all non-nested open reading frames in the given DNA sequence and returns
@@ -74,85 +125,115 @@ def find_all_ORFs_oneframe(dna):
     ['ATGCATGAATGTAGA', 'ATGTGCCC']
     """
     # TODO: implement this
-    pass
 
-def find_all_ORFs(dna):
-    """ Finds all non-nested open reading frames in the given DNA sequence in all 3
-        possible frames and returns them as a list.  By non-nested we mean that if an
-        ORF occurs entirely within another ORF and they are both in the same frame,
-        it should not be included in the returned list of ORFs.
+
+    x = [dna[i:i+3] for i in range(0,len(dna),3)]
+    all_orfs=[]
+    c = 0
+
+    while len(x)>0:
+    
+
+        if x[c] == 'ATG':
+            rest = rest_of_ORF(dna[c*3:])
+            #rest = rest[:len(rest) - 3]
+            #x = x[len(rest):]
+            all_orfs.append('ATG' + rest)
+        else:
+            x = x[1:]
+    return all_orfs
+
+
+print find_all_ORFs_oneframe("ATGCATGAATGTAG")
+
+
+
+
+
+
+            
+
+
+
+
+
+# def find_all_ORFs(dna):
+#     """ Finds all non-nested open reading frames in the given DNA sequence in all 3
+#         possible frames and returns them as a list.  By non-nested we mean that if an
+#         ORF occurs entirely within another ORF and they are both in the same frame,
+#         it should not be included in the returned list of ORFs.
         
-        dna: a DNA sequence
-        returns: a list of non-nested ORFs
+#         dna: a DNA sequence
+#         returns: a list of non-nested ORFs
 
-    >>> find_all_ORFs("ATGCATGAATGTAG")
-    ['ATGCATGAATGTAG', 'ATGAATGTAG', 'ATG']
-    """
-    # TODO: implement this
-    pass
+#     >>> find_all_ORFs("ATGCATGAATGTAG")
+#     ['ATGCATGAATGTAG', 'ATGAATGTAG', 'ATG']
+#     """
+#     # TODO: implement this
+#     pass
 
-def find_all_ORFs_both_strands(dna):
-    """ Finds all non-nested open reading frames in the given DNA sequence on both
-        strands.
+# def find_all_ORFs_both_strands(dna):
+#     """ Finds all non-nested open reading frames in the given DNA sequence on both
+#         strands.
         
-        dna: a DNA sequence
-        returns: a list of non-nested ORFs
-    >>> find_all_ORFs_both_strands("ATGCGAATGTAGCATCAAA")
-    ['ATGCGAATG', 'ATGCTACATTCGCAT']
-    """
-    # TODO: implement this
-    pass
+#         dna: a DNA sequence
+#         returns: a list of non-nested ORFs
+#     >>> find_all_ORFs_both_strands("ATGCGAATGTAGCATCAAA")
+#     ['ATGCGAATG', 'ATGCTACATTCGCAT']
+#     """
+#     # TODO: implement this
+#     pass
 
 
-def longest_ORF(dna):
-    """ Finds the longest ORF on both strands of the specified DNA and returns it
-        as a string
-    >>> longest_ORF("ATGCGAATGTAGCATCAAA")
-    'ATGCTACATTCGCAT'
-    """
-    # TODO: implement this
-    pass
+# def longe st_ORF(dna): 
+#     """ Finds the longest ORF on both strands of the specified DNA and returns it
+#         as a string
+#     >>> longest_ORF("ATGCGAATGTAGCATCAAA")
+#     'ATGCTACATTCGCAT'
+#     """
+#     # TODO: implement this
+#     pass
 
 
-def longest_ORF_noncoding(dna, num_trials):
-    """ Computes the maximum length of the longest ORF over num_trials shuffles
-        of the specfied DNA sequence
+# def longest_ORF_noncoding(dna, num_trials):
+#     """ Computes the maximum length of the longest ORF over num_trials shuffles
+#         of the specfied DNA sequence
         
-        dna: a DNA sequence
-        num_trials: the number of random shuffles
-        returns: the maximum length longest ORF """
-    # TODO: implement this
-    pass
+#         dna: a DNA sequence
+#         num_trials: the number of random shuffles
+#         returns: the maximum length longest ORF """
+#     # TODO: implement this
+#     pass
 
-def coding_strand_to_AA(dna):
-    """ Computes the Protein encoded by a sequence of DNA.  This function
-        does not check for start and stop codons (it assumes that the input
-        DNA sequence represents an protein coding region).
+# def coding_strand_to_AA(dna):
+#     """ Computes the Protein encoded by a sequence of DNA.  This function
+#         does not check for start and stop codons (it assumes that the input
+#         DNA sequence represents an protein coding region).
         
-        dna: a DNA sequence represented as a string
-        returns: a string containing the sequence of amino acids encoded by the
-                 the input DNA fragment
+#         dna: a DNA sequence represented as a string
+#         returns: a string containing the sequence of amino acids encoded by the
+#                  the input DNA fragment
 
-        >>> coding_strand_to_AA("ATGCGA")
-        'MR'
-        >>> coding_strand_to_AA("ATGCCCGCTTT")
-        'MPA'
-    """
-    # TODO: implement this
-    pass
+#         >>> coding_strand_to_AA("ATGCGA")
+#         'MR'
+#         >>> coding_strand_to_AA("ATGCCCGCTTT")
+#         'MPA'
+#     """
+#     # TODO: implement this
+#     pass
 
-def gene_finder(dna, threshold):
-    """ Returns the amino acid sequences coded by all genes that have an ORF
-        larger than the specified threshold.
+# def gene_finder(dna, threshold):
+#     """ Returns the amino acid sequences coded by all genes that have an ORF
+#         larger than the specified threshold.
         
-        dna: a DNA sequence
-        threshold: the minimum length of the ORF for it to be considered a valid
-                   gene.
-        returns: a list of all amino acid sequences whose ORFs meet the minimum
-                 length specified.
-    """
-    # TODO: implement this
-    pass
+#         dna: a DNA sequence
+#         threshold: the minimum length of the ORF for it to be considered a valid
+#                    gene.
+#         returns: a list of all amino acid sequences whose ORFs meet the minimum
+#                  length specified.
+#     """
+#     # TODO: implement this
+#     pass
 
 if __name__ == "__main__":
     import doctest
