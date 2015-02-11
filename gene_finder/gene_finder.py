@@ -297,7 +297,7 @@ def gene_finder(dna, threshold):
 
     AA = []
     for i in bothstrands_ORFs:
-        if len(bothstrands_ORFs(i)) > threshold:
+        if len(i) > threshold:
             AA.append(coding_strand_to_AA(i))
 
 
@@ -307,6 +307,17 @@ def gene_finder(dna, threshold):
 
 
 
+
+
+def real_dna():
+
+    dna = load_seq("./data/X73525.fa")
+    threshold = longest_ORF_noncoding(dna, 500)
+
+    aminoacidsequence = gene_finder(dna, threshold)
+    return aminoacidsequence
+
+print real_dna()
 
 
 
