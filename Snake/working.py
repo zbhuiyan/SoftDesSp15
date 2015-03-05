@@ -53,7 +53,15 @@ class Main():
         #Create the screen
         self.screen = pygame.display.set_mode((self.width
                                                , self.height))
-                      
+    
+
+    def LoadSprites(self):
+        """Load the sprites that we need"""
+        self.snake = Snake()
+        self.snake_sprites = pygame.sprite.RenderPlain((self.snake))                 
+
+    # def update_screen(self):
+
 
     def MainLoop(self):
         """This is the Main Loop of the Game"""
@@ -72,7 +80,6 @@ class Main():
         #Create the background
         self.background = pygame.Surface(self.screen.get_size())
         self.background = self.background.convert()
-        self.background.fill((0,0,0))
         
         while 1:
             for event in pygame.event.get():
@@ -84,6 +91,9 @@ class Main():
                     or (event.key == K_UP)
                     or (event.key == K_DOWN)):
                         self.snake.move(event.key)
+                        # self.background.fill((0,0,0))
+                        self.screen.fill((0,0,0))
+                        pygame.draw.rect(self.screen, (0,0,255), self.snake.rect)
 
                         # pygame.draw.rect(self.screen, (0,0,255),snake.rect)
 
@@ -96,13 +106,7 @@ class Main():
             # pygame.draw.rect(self.screen, (0,0,255), self.snake.rect)
             # print "AAAAA: ", self.snake.rect
             pygame.display.update(self.snake.rect)
-            # pygame.display.flip()
-                    
-    def LoadSprites(self):
-        """Load the sprites that we need"""
-        self.snake = Snake()
-        self.snake_sprites = pygame.sprite.RenderPlain((self.snake))        
-                                            
+            # pygame.display.flip()  
 
 if __name__ == "__main__":
     MainWindow = Main()
