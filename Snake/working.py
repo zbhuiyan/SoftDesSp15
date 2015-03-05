@@ -2,6 +2,7 @@ import os, sys
 import pygame
 from pygame.locals import *
 from helpers import *
+import itertools
 
     
 class Snake(pygame.sprite.Sprite):
@@ -60,12 +61,20 @@ class Main():
         self.snake = Snake()
         self.snake_sprites = pygame.sprite.RenderPlain((self.snake))                 
 
-    # def update_screen(self):
+
+    def setup_background(self):
+        self.screen.fill((0,0,0))
+        self.screen.blit(self.background,(0,0))
+        background_width, background_height = self.background.get_width(), self.background.get_height()
+        for x,y in itertools.product(range(0,self.width,background_width),
+                                     range(0,self.height,background_height)):
+            self.screen.blit(self.background, (x, y))
+        pygame.display.flip()
 
 
     def MainLoop(self):
         """This is the Main Loop of the Game"""
-        
+
         self.snake = Snake()
         # snake.rect = pygame.Rect(50,50,10,10)
         pygame.draw.rect(self.screen, (0,0,255), self.snake.rect)
@@ -76,14 +85,17 @@ class Main():
 
         #tell pygame to keep sending up keystrokes when they are held down
         pygame.key.set_repeat(500, 30)
-        
+
         #Create the background
         self.background = pygame.Surface(self.screen.get_size())
+        self.background = pygame.image.load("snake_resources/images/grass3.jpg")
         self.background = self.background.convert()
-        
+        # self.screen.blit(self.background, (0,0))
+        self.setup_background()
+
         while 1:
             for event in pygame.event.get():
-                if event.type == pygame.QUIT: 
+                if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == KEYDOWN:
                     if ((event.key == K_RIGHT)
@@ -92,21 +104,22 @@ class Main():
                     or (event.key == K_DOWN)):
                         self.snake.move(event.key)
                         # self.background.fill((0,0,0))
-                        self.screen.fill((0,0,0))
+                        # self.screen.blit(self.background, (0,0))
+                        self.setup_background()
                         pygame.draw.rect(self.screen, (0,0,255), self.snake.rect)
 
                         # pygame.draw.rect(self.screen, (0,0,255),snake.rect)
 
-                        
+
             """Check for collision"""
             #lstCols = pygame.sprite.spritecollide(self.snake
                                                  #, self.pellet_sprites
                                                  #, True)
-               
+
             # pygame.draw.rect(self.screen, (0,0,255), self.snake.rect)
             # print "AAAAA: ", self.snake.rect
             pygame.display.update(self.snake.rect)
-            # pygame.display.flip()  
+            # pygame.display.flip() 
 
 if __name__ == "__main__":
     MainWindow = Main()
