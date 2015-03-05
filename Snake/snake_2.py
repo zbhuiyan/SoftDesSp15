@@ -19,18 +19,29 @@ class DrawableSurface():
         """ Get the rect """
         return self.rect
 
+
 class Snake():
     """ represents the state of the player in the game """
     def __init__(self, pos_x, pos_y):
         self.pos_x = pos_x
         self.pos_y = pos_y
+        self.vel_x = vel_x
+        self.vel_y = vel_y
 
     def update(self):
-        self.pos_x += .1
-        self.pos_y += self.vel_y
-        self.vel_y += .01
+        if direction == 0:
+            pos_y += vel
+        elif direction == 1:
+            pos_x -= vel
+        elif direction == 2:
+            pos_y -= vel
+        elif direction == 3:
+            pos_x -= vel
+        #self.pos_x += .1
+        #self.pos_y += self.vel_y
+        #self.vel += .01
 
-    def change_direction(self):
+    #def change_direction(self):
         #self.vel_y -= 1
 
     def get_drawables(self):
@@ -41,7 +52,7 @@ class Snake():
                                                         h))]
 
 class Background():
-    """ Represents the background (at first just the ground) """
+    """  """
     def __init__(self,width,height):
         self.image = pygame.image.load('snake_resources/images/grass.png')
         self.height = height
@@ -55,7 +66,7 @@ class Background():
         return drawables
 
     def collided_with(self, entity):
-        """ Returns True iff the input drawable surface (entity) has
+        """ Returns True if the input drawable surface (entity) has
             collided with the ground """
         drawables = self.get_drawables()
         rectangles = []
