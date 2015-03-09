@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """ Computational Art Mini-Project
     
     Author:Zarin Bhuiyan
@@ -8,6 +9,12 @@ import random
 from PIL import Image
 from math import pi, sin, cos, tan, exp
 
+=======
+""" TODO: Put your header comment here """
+
+import random
+from PIL import Image
+>>>>>>> 68b2965c9c5fa90bd2433f3b7f672e6b29c1bbbb
 
 
 def build_random_function(min_depth, max_depth):
@@ -21,6 +28,7 @@ def build_random_function(min_depth, max_depth):
                  (see assignment writeup for details on the representation of
                  these functions)
     """
+<<<<<<< HEAD
 
     i=random.randint(0,1)
     if max_depth == 1:
@@ -33,6 +41,10 @@ def build_random_function(min_depth, max_depth):
     if i==0:
         return [random.choice(['sin_pi','cos_pi', 'tan_pi','exp']),build_random_function(min_depth-1,max_depth-1)]
 
+=======
+    # TODO: implement this
+    pass
+>>>>>>> 68b2965c9c5fa90bd2433f3b7f672e6b29c1bbbb
 
 
 def evaluate_random_function(f, x, y):
@@ -48,6 +60,7 @@ def evaluate_random_function(f, x, y):
         -0.5
         >>> evaluate_random_function(["y"],0.1,0.02)
         0.02
+<<<<<<< HEAD
         >>> evaluate_random_function(['sin_pi', ['prod', ['x'] , ['y'] ] ],0,0)
         0.0
      """
@@ -70,6 +83,11 @@ def evaluate_random_function(f, x, y):
         return (evaluate_random_function(f[1],x,y))**4
 
 
+=======
+    """
+    # TODO: implement this
+    pass
+>>>>>>> 68b2965c9c5fa90bd2433f3b7f672e6b29c1bbbb
 
 
 def remap_interval(val, input_interval_start, input_interval_end, output_interval_start, output_interval_end):
@@ -95,6 +113,7 @@ def remap_interval(val, input_interval_start, input_interval_end, output_interva
         >>> remap_interval(5, 4, 6, 1, 2)
         1.5
     """
+<<<<<<< HEAD
     
     OldRange = (float(input_interval_end) - float(input_interval_start))  
     NewRange = (float(output_interval_end) - float(output_interval_start))  
@@ -103,6 +122,10 @@ def remap_interval(val, input_interval_start, input_interval_end, output_interva
 
 
 
+=======
+    # TODO: implement this
+    pass
+>>>>>>> 68b2965c9c5fa90bd2433f3b7f672e6b29c1bbbb
 
 
 def color_map(val):
@@ -122,7 +145,10 @@ def color_map(val):
         191
     """
     # NOTE: This relies on remap_interval, which you must provide
+<<<<<<< HEAD
 
+=======
+>>>>>>> 68b2965c9c5fa90bd2433f3b7f672e6b29c1bbbb
     color_code = remap_interval(val, -1, 1, 0, 255)
     return int(color_code)
 
@@ -154,9 +180,15 @@ def generate_art(filename, x_size=350, y_size=350):
         x_size, y_size: optional args to set image dimensions (default: 350)
     """
     # Functions for red, green, and blue channels - where the magic happens!
+<<<<<<< HEAD
     red_function = build_random_function(7,9)
     green_function = build_random_function(7,9)
     blue_function = build_random_function(7,9)
+=======
+    red_function = ["x"]
+    green_function = ["y"]
+    blue_function = ["x"]
+>>>>>>> 68b2965c9c5fa90bd2433f3b7f672e6b29c1bbbb
 
     # Create image and loop over all pixels
     im = Image.new("RGB", (x_size, y_size))
@@ -177,6 +209,7 @@ def generate_art(filename, x_size=350, y_size=350):
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
+<<<<<<< HEAD
     #print evaluate_random_function(build_random_function(2,3),0,0)
     # print build_random_function(2,4)
     # Create some computational art!
@@ -187,3 +220,14 @@ if __name__ == '__main__':
     # Test that PIL is installed correctly
     # TODO: Comment or remove this function call after testing PIL install
     #test_image("noise.png")
+=======
+
+    # Create some computational art!
+    # TODO: Un-comment the generate_art function call after you
+    #       implement remap_interval and evaluate_random_function
+    #generate_art("myart.png")
+
+    # Test that PIL is installed correctly
+    # TODO: Comment or remove this function call after testing PIL install
+    test_image("noise.png")
+>>>>>>> 68b2965c9c5fa90bd2433f3b7f672e6b29c1bbbb

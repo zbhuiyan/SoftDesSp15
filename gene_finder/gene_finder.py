@@ -261,6 +261,7 @@ def coding_strand_to_AA(dna):
         'MPA'
     """
 
+<<<<<<< HEAD
 
     x = [dna[i:i+3] for i in range(0,len(dna),3)]
     aminoacids = []
@@ -279,6 +280,8 @@ def coding_strand_to_AA(dna):
 
 
 
+=======
+>>>>>>> 68b2965c9c5fa90bd2433f3b7f672e6b29c1bbbb
 def gene_finder(dna):
     """ Returns the amino acid sequences that are likely coded by the specified dna
         

@@ -3,6 +3,7 @@ import pygame
 from pygame.locals import *
 from helpers import *
 import itertools
+import random
 
     
 class Snake(pygame.sprite.Sprite):
@@ -11,7 +12,7 @@ class Snake(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self) 
         self.rect = pygame.Rect(50,50,10,10)
-        self.pellets = 0
+    
         """Set the number of Pixels to move each time"""
         self.x_dist = 5
         self.y_dist = 5 
@@ -22,21 +23,63 @@ class Snake(pygame.sprite.Sprite):
         we will adjust outselfs in that direction"""
         xMove = 0
         yMove = 0
+        speed = 10
+        direction = 1
+
+ #Sorry, it's not working, I couldn't get it figured out... Ive added velocity. While loops kept going to infinity  and never stopped running 
+ #so i got rid of them. 
+
+        if (key == K_RIGHT) or direction == 1:
+            if direction !=3 or direction !=2 or direction !=0:
+                xMove = self.x_dist + speed
         
-        if (key == K_RIGHT):
-            xMove = self.x_dist
-        elif (key == K_LEFT):
-            xMove = -self.x_dist
-        elif (key == K_UP):
-            yMove = -self.y_dist
-        elif (key == K_DOWN):
-            yMove = self.y_dist
-        # self.rect = self.rect.move(xMove,yMove)
+        elif (key == K_LEFT) or direction == 3:
+            if direction !=1 or direction !=0 or direction !=2:
+                xMove = -self.x_dist - speed
+        
+        elif (key == K_UP) or direction == 2:
+            if direction != 0 or direction !=1 or direction !=3:
+                yMove = -self.y_dist + speed
+
+            
+        elif (key == K_DOWN) or direction ==0:
+            if direction !=1 or direction !=2 or direction !=3:
+                yMove = self.y_dist - speed
+        
+
+                # self.rect = self.rect.move(xMove,yMove)
         self.rect = self.rect.move(xMove,yMove)
-        print "!!!", self.rect
+        # print "!!!", self.rect
         # self.rect.move(xMove,yMove)
         # self.rect.move_ip(xMove,yMove)
         
+# class Food(pygame.sprite.Sprite):
+#     def __init__(self):
+#         self.rect = pygame.Rect(75,80,10,10)
+        # self.x_pos = x_pos
+        # self.y_pos = y_pos
+
+
+#     def randomize(self):
+        
+#         qty = 1  # or however many points you want
+# # Generate a set of all points within 200 of the origin, to be used as offsets later
+# # There's probably a more efficient way to do this.
+#         random_x = random.randint(0,640)
+#         random_y = random.randint(0,480)
+
+    
+#             x = random.randrange(*rangeX)
+#             y = random.randrange(*rangeY)
+#             if (x,y) in excluded: continue
+#             randPoints.append((x,y))
+#             i += 1
+#             excluded.update((x+dx, y+dy) for (dx,dy) in deltas)
+#         print randPoints
+
+
+
+
 
 class Main():
     """"""
@@ -46,6 +89,7 @@ class Main():
         
         #Initialize PyGame
         pygame.init()
+        self.running = True
         
         #Set the window size
         self.width = width
@@ -59,7 +103,9 @@ class Main():
     def LoadSprites(self):
         """Load the sprites that we need"""
         self.snake = Snake()
-        self.snake_sprites = pygame.sprite.RenderPlain((self.snake))                 
+        self.snake_sprites = pygame.sprite.RenderPlain((self.snake))
+        # self.food = Food()
+        # self.food_sprites = pygame.sprite.RenderPlain((self.food))                 
 
 
     def setup_background(self):
@@ -71,13 +117,26 @@ class Main():
             self.screen.blit(self.background, (x, y))
         pygame.display.flip()
 
+    # def death(self):
+
+
+
+
+
+
+
+
+
+
+
 
     def MainLoop(self):
         """This is the Main Loop of the Game"""
 
         self.snake = Snake()
+        
+        direction = 0
         # snake.rect = pygame.Rect(50,50,10,10)
-        pygame.draw.rect(self.screen, (0,0,255), self.snake.rect)
         # pygame.draw(self.snake.rect)
 
         #Load all sprites
@@ -92,21 +151,36 @@ class Main():
         self.background = self.background.convert()
         # self.screen.blit(self.background, (0,0))
         self.setup_background()
+        pygame.draw.rect(self.screen, (255,255,0), self.snake.rect)
+
 
         while 1:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == KEYDOWN:
-                    if ((event.key == K_RIGHT)
-                    or (event.key == K_LEFT)
-                    or (event.key == K_UP)
-                    or (event.key == K_DOWN)):
+                    if (event.key == K_RIGHT) and direction != 3:
+                        direction = 1
                         self.snake.move(event.key)
-                        # self.background.fill((0,0,0))
-                        # self.screen.blit(self.background, (0,0))
                         self.setup_background()
-                        pygame.draw.rect(self.screen, (0,0,255), self.snake.rect)
+                        pygame.draw.rect(self.screen, (255,255,0), self.snake.rect)
+                    elif (event.key == K_LEFT) and direction !=1:
+                        direction = 3
+                        self.snake.move(event.key)
+                        self.setup_background()
+                        pygame.draw.rect(self.screen, (255,255,0), self.snake.rect)
+                    elif (event.key == K_UP) and direction != 0:
+                        direction = 2
+                        self.snake.move(event.key)
+                        self.setup_background()
+                        pygame.draw.rect(self.screen, (255,255,0), self.snake.rect)
+                    elif (event.key == K_DOWN) and direction != 2:
+                        direction = 0
+                        self.snake.move(event.key)
+                        self.setup_background()
+                        pygame.draw.rect(self.screen, (255,255,0), self.snake.rect)
+                
+         
 
                         # pygame.draw.rect(self.screen, (0,0,255),snake.rect)
 

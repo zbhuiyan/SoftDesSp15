@@ -2,7 +2,11 @@
 
 from Nsound import *
 import numpy as np
+<<<<<<< HEAD
 from numpy.random import choice, rand, random_sample
+=======
+from random import choice
+>>>>>>> 68b2965c9c5fa90bd2433f3b7f672e6b29c1bbbb
 
 def add_note(out, instr, key_num, duration, bpm, volume):
     """ Adds a note from the given instrument to the specified stream
