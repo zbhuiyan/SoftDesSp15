@@ -115,8 +115,9 @@ class Main():
     def __init__(self, width=640,height=480):
         """Initialize"""
         
-        #Initialize PyGame
         pygame.init()
+
+        #Initialize PyGame
         self.running = True
         
         #Set the window size
@@ -124,8 +125,7 @@ class Main():
         self.height = height
         
         #Create the screen
-        self.screen = pygame.display.set_mode((self.width
-                                               , self.height))
+        self.screen = pygame.display.set_mode((self.width,self.height))
     
 
     def LoadSprites(self):
@@ -160,51 +160,46 @@ class Main():
 
     def MainLoop(self):
         """This is the Main Loop of the Game"""
-
+        
         direction = 0
         #Load all sprites
         self.LoadSprites()
 
         #Create the background
-        self.background = pygame.image.load("snake_resources/images/grass3.jpg").convert()
+        # self.background = pygame.image.load("snake_resources/images/grass3.jpg").convert()
+        # self.background.fill((255,255,255))
         # self.screen.blit(self.background, (0,0))
         #self.setup_background()
         pygame.draw.rect(self.screen, (255,255,0), self.snake.rect)
         
 
-        counter = 0
-        running = True
-        while running:
+        while self.running:
+
             #counter = counter + 1
          
             for event in pygame.event.get():
                 pygame.draw.rect(self.screen, (0,0,0), self.food.rect)
                 if event.type == pygame.QUIT:
-                    running = False
+                    self.running = False
                 elif self.check_collision(self.snake,self.food) == True:
-                    running = False
+                    self.running = False
                 elif event.type == KEYDOWN:
                     if (event.key == K_RIGHT):
                         self.snake.move_key_down(event.key)
-                        self.setup_background()
                         pygame.draw.rect(self.screen, (255,255,0), self.snake.rect)
                     elif (event.key == K_LEFT):
                         self.snake.move_key_down(event.key)
-                        self.setup_background()
                         pygame.draw.rect(self.screen, (255,255,0), self.snake.rect)
                     elif (event.key == K_UP):
                         self.snake.move_key_down(event.key)
-                        self.setup_background()
                         pygame.draw.rect(self.screen, (255,255,0), self.snake.rect)
                     elif (event.key == K_DOWN):
                         self.snake.move_key_down(event.key)
-                        self.setup_background()
                         pygame.draw.rect(self.screen, (255,255,0), self.snake.rect)
 
 
                 self.snake.move_always(self.snake.direction)
 
-                self.setup_background()
                 pygame.draw.rect(self.screen, (255,255,0), self.snake.rect)
                 pygame.draw.rect(self.screen, (0,0,0), self.food.rect)
         # """Check for collision"""
@@ -213,13 +208,13 @@ class Main():
                                                  #, True)
 
             # pygame.draw.rect(self.screen, (0,0,255), self.snake.rect)
-                self.screen.blit(self.background, [0,0])
 
-                # pygame.display.update(self.snake.rect)
-                # pygame.display.update(self.food.rect)
+                pygame.display.update(self.snake.rect)
+                pygame.display.update(self.food.rect)
+
                 time.sleep(0.0001)      
 
-            pygame.quit()
+        pygame.quit()
             # pygame.display.flip() 
 
 if __name__ == "__main__":
