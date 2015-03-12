@@ -21,17 +21,17 @@ class Snake():
         self.is_dead = False
 
         self.score = 0
+
+        self.speed = .1
         
 
     def move_always(self):
         """Move your self in one of the 4 directions according to key"""
         """Key is the pyGame define for either up,down,left, or right key
         we will adjust outselfs in that direction"""
-        speed = .1
         
-        
-        self.x += speed*self.x_sign        
-        self.y += speed*self.y_sign
+        self.x += self.speed*self.x_sign        
+        self.y += self.speed*self.y_sign
 
         self.rect = pygame.Rect(self.x, self.y, 10,10)
 
@@ -104,6 +104,8 @@ class Main(object):
         
         #Create the screen
         self.screen = pygame.display.set_mode((self.width,self.height))
+        self.background = pygame.Surface(self.screen.get_size())
+        self.background = self.background.convert()
         self.snake = Snake()
         self.food = Food() 
         self.food.rect = self.food.rect
@@ -118,6 +120,7 @@ class Main(object):
         
         if (self.snake.rect.colliderect(self.food)) == True:
             self.snake.score += 1
+            self.snake.speed += .05
             print self.snake.score
             collision = True
         else:
@@ -143,13 +146,24 @@ class Main(object):
 
     def display_update(self):
         self.screen.fill((0,0,0))
-        pygame.draw.rect(self.screen, (255,255,0), pygame.Rect(self.snake.x, self.snake.y, 10,10))#self.snake.rect)
+        # self.background.fill((0,0,0))
+        pygame.draw.rect(self.screen, (255,255,0), pygame.Rect(self.snake.x, self.snake.y, 10,10))
 
         for x in range(0,len(self.deathblocks)):
-            pygame.draw.rect(self.screen, (255,0,0), self.deathblocks[x].rect)
+            pygame.draw.rect(self.screen, (255,0,0), self.deathblocks[x].rect) #(255,0,0), self.deathblocks[x].rect)
 
+        # pygame.draw.rect(self.screen, (0,255,0), self.food.rect)
         pygame.draw.rect(self.screen, (0,255,0), self.food.rect)
-        
+
+
+
+        # font = pygame.font.SysFont('Sans', 50)
+        # text = font.render('This is a text', True, (255, 0, 0))
+
+        myfont = pygame.font.SysFont("monospace", 15)
+        label = myfont.render("Score = "+ str(self.snake.score), 1, (255,255,0))
+        # print label
+        self.screen.blit(label, (250, 250))
         pygame.display.update()
         pygame.display.flip()
 
