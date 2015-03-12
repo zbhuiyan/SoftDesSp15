@@ -221,7 +221,7 @@ class Main(object):
             #pygame.mixer.Sound('jaws_theme.mp3')
             if self.check_collision() == True:
                 self.eat_and_grow()
-
+   
                 # self.running = False
             for event in pygame.event.get():
                 pygame.draw.rect(self.screen, (0,0,0), self.food.rect)
