@@ -50,7 +50,7 @@ class Player():
             self.x_sign = 1
             self.y_sign = 0
         
-        #if left arrow key is pressed, will move in negative x direction
+        #if left arrow key is pressed, will move in negative x direction-1.04719755 rad
         elif (key == K_LEFT):
             self.x_sign = -1
             self.y_sign = 0
@@ -149,7 +149,7 @@ class Main(object):
     def make_food(self):
         """ Creates food rectangles in the main class. """
 
-        #generates random coordinates for food
+        #generates random coordinates for food 
         random_x = random.randint(0,630)
         random_y = random.randint(0,470)
 
@@ -215,13 +215,14 @@ class Main(object):
         pygame.draw.rect(self.screen, (255,255,0), self.player.rect)
 
         #load music
-        pygame.mixer.music.load('jaws.mp3')
+        # pygame.mixer.music.load('jaws.mp3')
         
         #game loop: runs while the game is running and player is alive
         while self.running and self.player.is_dead == False:
             
             #plays the music
-            pygame.mixer.music.play()
+            # pygame.mixer.music.play()
+
             
             #if a food/player collisions occurs, calls eat_and_grow()
             if self.check_collision() == True:
