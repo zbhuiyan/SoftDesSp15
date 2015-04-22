@@ -14,6 +14,8 @@ from math import pi, sin, cos, tan, exp
 
 import random
 from PIL import Image
+
+#holy cow merge conflicts! You should have fixed this before pushing.
 >>>>>>> 68b2965c9c5fa90bd2433f3b7f672e6b29c1bbbb
 
 
@@ -33,6 +35,7 @@ def build_random_function(min_depth, max_depth):
     i=random.randint(0,1)
     if max_depth == 1:
         return [random.choice(['x','y'])]
+    #probably shouldn't be an elif here, and should be an if, since max_depth being 1 does not prevent min_depth from being <=1.
     elif min_depth <=1 and i==0:
         return [random.choice(['x','y'])]
     i=random.randint(0,1)
@@ -40,6 +43,8 @@ def build_random_function(min_depth, max_depth):
         return [random.choice(['prod','avg']),build_random_function(min_depth-1,max_depth-1),build_random_function(min_depth-1,max_depth-1)]
     if i==0:
         return [random.choice(['sin_pi','cos_pi', 'tan_pi','exp']),build_random_function(min_depth-1,max_depth-1)]
+    #the way you wrote your code, functions nested past mindepth will always be products or averages. 
+    #it's really best to nest your code explicitly so that you'll see that things like this will happen.
 
 =======
     # TODO: implement this
@@ -114,7 +119,8 @@ def remap_interval(val, input_interval_start, input_interval_end, output_interva
         1.5
     """
 <<<<<<< HEAD
-    
+    #for future ref, if one number involved in an operation is a float, python will automatically cast
+    #the other number to a float.
     OldRange = (float(input_interval_end) - float(input_interval_start))  
     NewRange = (float(output_interval_end) - float(output_interval_start))  
     NewValue = (((float(val) - float(input_interval_start)) * NewRange) / OldRange) + float(output_interval_start)
